@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'artalk_base:getMessage' %}" method='POST'>
+    <span>coordinateX:</span>
+    <input type="text" name="cx" placeholder="x">
+    <span>coordinateY:</span>
+    <input type="text" name="cy" placeholder="y">
+    <span>messageId:</span>
+    <input type="text" name="mId" placeholder="mId">
+
+    <button>submit</button>
+</form>
+</body>
+</html>

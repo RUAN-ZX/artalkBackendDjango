@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'artalk_base:createComment' %}" method='POST'>
+    <span>messageId:</span>
+    <input type="text" name="messageId" placeholder="messageId">
+    <span>userId:</span>
+    <input type="text" name="userId" placeholder="userId">
+    <span>Text:</span>
+    <input type="text" name="text" placeholder="Text">
+
+    <button>submit</button>
+</form>
+</body>
+</html>

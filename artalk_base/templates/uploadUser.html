@@ -1,0 +1,22 @@
+<!-- templates/users/add.html -->
+<!doctype html>
+<html>
+<head>
+    <title>Add</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Add Message Voice</h1>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'artalk_base:createUser' %}">
+    <ul>
+        <li>Avatar<input type="file" name="Avatar"/></li>
+        <li>Alias<input type="text" name="alias"/></li>
+        <li>Password<input type="text" name='password'/></li>
+        <li>Phone<input type="text" name="phone"/></li>
+        <li>Gender<input type="text" name="gender"/></li>
+        <li><input type="submit" value="OK"/></li>
+    </ul>
+    </form>
+</body>
+</html>

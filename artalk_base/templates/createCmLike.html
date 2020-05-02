@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'artalk_base:createCmLike' %}" method='POST'>
+    <span>commentId:</span>
+    <input type="text" name="cmId" placeholder="commentId">
+    <span>userId:</span>
+    <input type="text" name="userId" placeholder="userId">
+
+    <button>submit</button>
+</form>
+</body>
+</html>

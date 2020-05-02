@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GetVoice</title>
+</head>
+<body>
+
+
+<h2>VoiceList</h2>
+<ul>{% for stu in Voice %}
+    <li>{{stu.messageId}}-XY:({{stu.messageCx}}-{{stu.messageCy}})</li>
+    {% endfor %}
+
+</body>
+</html>
