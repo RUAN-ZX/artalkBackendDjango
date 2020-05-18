@@ -25,6 +25,7 @@ from django.views.static import serve
 from .settings import MEDIA_ROOT
 urlpatterns = [
     path('Ryaninnerpeace/admin/', admin.site.urls),
+    path('edot/', include('edotBackend.urls')),
     path('', include('artalk_base.urls')),           #2
     #path('', RedirectView.as_view(url='/artalk/', permanent=True)),
     #path('accounts/', include('django.contrib.auth.urls')),
