@@ -25,7 +25,7 @@ class user(models.Model):
     userPwd = models.CharField(max_length=20,default='66666666')
     userPhone = models.CharField(max_length=12,default='13713800000')
     userGender = models.BooleanField(default=True)
-    userAvatar = models.FilePathField(path='Avatar/',unique=True)# 具体设置还要查\
+    userAvatar = models.FilePathField(path='artalk/Avatar/',unique=True)# 具体设置还要查\
     objects = models.manager.QuerySet
 
     @classmethod
@@ -50,7 +50,7 @@ class message(models.Model):
     msUserID = models.CharField(max_length=6)
     # 注意 逻辑上一定要和user表的userId对应！！！
     msText = models.CharField(max_length=144,blank=True,null=True)
-    msVoice = models.FilePathField(path='Voice/',blank=True,null=True)
+    msVoice = models.FilePathField(path='artalk/Voice/',blank=True,null=True)
     msLikeCount = models.SmallIntegerField(default=0)
     msDisLikeCount = models.SmallIntegerField(default=0)
     msTime = models.DateTimeField(default=now())

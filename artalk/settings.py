@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions', # session 会话
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'artalk_base'
+    'artalk_base',
+    'edotBackend',
+    # app 在setting的注册顺序会影响template的寻找顺序！
+
 ]
 
 MIDDLEWARE = [

@@ -22,10 +22,14 @@ class video(models.Model):
     videoId = models.AutoField(primary_key=True)
     videoTitle = models.CharField(max_length=20,unique=True)
     videoInfo = models.CharField(max_length=200,default='这个Up很懒，没有写简介')
+    videoSrc = models.FilePathField(path='Edot/video', unique=True)
+    videoCover = models.FilePathField(path='Edot/cover', unique=True)
+
     videoViews = models.IntegerField(default=0)
     videoLikes = models.IntegerField(default=0)
+    videoDisLikes = models.IntegerField(default=0)
     videoComments = models.IntegerField(default=0)
-    videoAnthorId = models.BooleanField(default=True)
+
     videoTime = models.DateTimeField(default=now())
     # 上传时间
     videoDuration = models.IntegerField(default=60)
@@ -50,18 +54,18 @@ class video(models.Model):
     videoTool = models.SmallIntegerField(default=0)
     # 锻炼器材 0-3
     objects = models.manager.QuerySet
-    @classmethod
-    def create(cls, i,videoAvatar=''):
-        i = int(i)
-        videoAlias = get_unique_str(10)
-        videoPhone = 13713800000+i
-        videoGender = i%2
-        return cls(
-            videoAlias=videoAlias,
-            videoPhone=str(videoPhone),
-            videoGender = videoGender,
-            videoAvatar = videoAvatar,
-        )
+    # @classmethod
+    # def create(cls, i,videoAvatar=''):
+    #     i = int(i)
+    #     videoAlias = get_unique_str(10)
+    #     videoPhone = 13713800000+i
+    #     videoGender = i%2
+    #     return cls(
+    #         videoAlias=videoAlias,
+    #         videoPhone=str(videoPhone),
+    #         videoGender = videoGender,
+    #         videoAvatar = videoAvatar,
+    #     )
 
 
 class user(models.Model):
@@ -71,12 +75,12 @@ class user(models.Model):
     userTime = models.DateTimeField(default=now())
     userPhone = models.CharField(max_length=12,default='13713800000')
     userGender = models.BooleanField(default=True)
-    userAvatar = models.FilePathField(path='EdotAuthorAvatar/',unique=True)# 具体设置还要查\
+    userAvatar = models.FilePathField(path='Edot/avatar/',unique=True)# 具体设置还要查\
     objects = models.manager.QuerySet
 
     @classmethod
-    def create(cls, i,userAvatar=''):
-        i = int(i)
+    def create(cls,userAvatar=''):
+        i = int(time.time())%1000000
         userAlias = get_unique_str(10)
         userPhone = 13713800000+i
         userGender = i%2
@@ -119,7 +123,7 @@ class Dislike(models.Model):
 
 class comment(models.Model):
     cmId = models.AutoField(primary_key = True)
-    cmText = models.CharField(max_length=144,default="志之所趋 无远弗届")
+    cmText = models.CharField(max_length=144,default="身体是革命的本钱")
     cmUserId = models.CharField(max_length=6)
     cmVId = models.CharField(max_length=6)
     cmLikeCount = models.SmallIntegerField(default=0)

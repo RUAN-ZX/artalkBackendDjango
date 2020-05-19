@@ -1,0 +1,21 @@
+<!-- templates/users/add.html -->
+<!doctype html>
+<html>
+<head>
+    <title>Add</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Add Message Voice</h1>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'edotBackend:createUserVideo' %}">
+    <ul>
+        <li>Avatar<input type="file" name="avatar"/></li>
+        <li>VideoCover<input type="file" name="cover"/></li>
+        <li>Video<input type="file" name="video"/></li>
+        <li>musucle Part<input type="text" name="musucle"/></li>
+        <li><input type="submit" value="OK"/></li>
+    </ul>
+    </form>
+</body>
+</html>

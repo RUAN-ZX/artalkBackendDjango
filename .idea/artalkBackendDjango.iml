@@ -22,6 +22,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/artalk_base/templates" />
+        <option value="$MODULE_DIR$/edotBackend/templates" />
       </list>
     </option>
   </component>

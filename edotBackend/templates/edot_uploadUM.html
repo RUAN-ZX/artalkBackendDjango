@@ -1,0 +1,19 @@
+<!-- templates/users/add.html -->
+<!doctype html>
+<html>
+<head>
+    <title>Add</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Add Message Voice</h1>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'artalk_base:createUM' %}">
+    <ul>
+        <li>Avatar<input type="file" name=Avatar></li>
+        <li>Voice<input type="file" name=Voice></li>
+        <li><input type="submit" value="OK"/></li>
+    </ul>
+    </form>
+</body>
+</html>

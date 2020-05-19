@@ -11,6 +11,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 urlpatterns = [
+re_path('createUserVideo/$',views.createUserVideo,name='createUserVideo'),
     # 创建
 
 

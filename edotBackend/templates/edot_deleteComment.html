@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'artalk_base:deleteComment' %}" method='POST'>
+    <span>CommentId:</span>
+    <input type="text" name="cmId" placeholder="cmId">
+
+
+    <button>submit</button>
+</form>
+</body>
+</html>
+

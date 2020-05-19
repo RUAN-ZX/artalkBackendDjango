@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'artalk_base:getMessage' %}" method='POST'>
+    <span>musucle:</span>
+    <input type="text" name="musucle" placeholder="1">
+
+    <span>messageId:</span>
+    <input type="text" name="mId" placeholder="mId">
+
+    <button>submit</button>
+</form>
+</body>
+</html>

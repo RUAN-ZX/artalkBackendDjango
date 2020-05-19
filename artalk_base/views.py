@@ -176,7 +176,7 @@ def getMessage(request):
                 print('坐标和messageID都没有！' + str(e))
                 return render(request, '404.html')
     else:
-        return render(request, 'getMessage.html')
+        return render(request, 'artalk_getMessage.html')
 
 
 
@@ -231,7 +231,7 @@ def createUser(request):
             #     return JsonResponse(dictJson)
             userI.userAvatar = avatar
             userI.save()
-            return render(request, 'uploadUserResult.html', context={"user": userI})
+            return render(request, 'artalk_uploadUserResult.html', context={"user": userI})
         except AttributeError:
             dictJson['code'] = -3
             return JsonResponse(dictJson)
@@ -240,7 +240,7 @@ def createUser(request):
             dictJson['code'] = -4
             return JsonResponse(dictJson)
     else:
-        return render(request, 'uploadUser.html')
+        return render(request, 'artalk_uploadUser.html')
 
 # ok
 def createMessage(request):
@@ -288,16 +288,12 @@ def createMessage(request):
                 'msId': msId,
             }
             return JsonResponse(data2)
-            # return render(
-            #     request,
-            #     'uploadMessageResult.html',
-            #     context={"message": messageI})
         except Exception as e:
             print(e)
             dictJson['code'] = -4
             return JsonResponse(dictJson)
     else:
-        return render(request, 'uploadMessage.html')
+        return render(request, 'artalk_uploadMessage.html')
 
 
 
@@ -347,7 +343,7 @@ def createComment(request):
             # 这里到达不了 后面再看
 
     else:
-         return render(request,'setComment.html')
+         return render(request,'artalk_setComment.html')
         # returnDict['code'] = -5
         # return JsonResponse(returnDict)
 
@@ -456,14 +452,14 @@ def createUM(request):
         #
         return render(
             request,
-            'uploadUMResult.html',
+            'artalk_uploadUMResult.html',
             context={
                 "user": userI,
                 "message":messageI,
 
             })
     else:
-        return render(request, 'uploadUM.html')
+        return render(request, 'artalk_uploadUM.html')
 
 
 
@@ -525,7 +521,7 @@ def toggleMsLike(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request, 'createMsLike.html')
+        return render(request, 'artalk_createMsLike.html')
         #returnDict['code'] = -6
         #eturn JsonResponse(returnDict)
 ## ok
@@ -588,7 +584,7 @@ def toggleMsDisLike(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request, 'createMsDisLike.html')
+        return render(request, 'artalk_createMsDisLike.html')
 
 
 # ok
@@ -650,7 +646,7 @@ def toggleCmDisLike(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request, 'createCmDisLike.html')
+        return render(request, 'artalk_createCmDisLike.html')
 
 def toggleCmLike(request):
     returnDict = {}
@@ -711,7 +707,7 @@ def toggleCmLike(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request,'createCmLike.html')
+        return render(request,'artalk_createCmLike.html')
         #returnDict['code'] = -6
         #return JsonResponse(returnDict)
 
@@ -742,7 +738,7 @@ def deleteMessage(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request, 'deleteMessage.html')
+        return render(request, 'artalk_deleteMessage.html')
 
 # ok
 def getUser(request):
@@ -771,7 +767,7 @@ def getUser(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request, 'getUser.html')
+        return render(request, 'artalk_getUser.html')
 
 
 def deleteComment(request):
@@ -797,5 +793,5 @@ def deleteComment(request):
             return JsonResponse(returnDict)
 
     else:
-        return render(request, 'deleteComment.html')
+        return render(request, 'artalk_deleteComment.html')
 # 63 95
