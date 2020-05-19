@@ -296,9 +296,6 @@ def createMessage(request):
         return render(request, 'artalk_uploadMessage.html')
 
 
-
-
-
 # ok
 def createComment(request):
     returnDict = {}
@@ -363,7 +360,8 @@ def getRandomDisLikeUser(code,id):
     # 当code=1 是给message点赞
     if code:
         # CmId 为空 那么msId就有值了
-        if not bool(Dislike.objects.filter(Q(disLikeUserId=userI))&bool(Q(disLikeMsId=id))&like.objects.filter(Q(likeUserId=userI)&Q(likeMsId=id))):
+        if not bool(
+                Dislike.objects.filter(Q(disLikeUserId=userI)&Q(disLikeMsId=id))&like.objects.filter(Q(likeUserId=userI)&Q(likeMsId=id))):
             return userI
         else:
             return getRandomDisLikeUser(code,id)

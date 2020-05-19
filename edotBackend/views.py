@@ -60,7 +60,41 @@ def transform(a):
     else:
         return 1
 
+def getRandomDisLikeUser(code,id):
 
+    userI = user.objects.all()[random.randrange(0,int( user.objects.count()))].userId
+    # 当code=1 是给message点赞
+    if code:
+        # CmId 为空 那么msId就有值了
+        if not bool(Dislike.objects.filter(Q(disLikeUserId=userI)&Q(disLikeVId=id)))&bool(like.objects.filter(Q(likeUserId=userI)&Q(likeVId=id))):
+            return userI
+        else:
+            return getRandomDisLikeUser(code,id)
+    # 是为了comment点赞：
+    else:
+        if not bool(Dislike.objects.filter(Q(disLikeCmId=id)&Q(disLikeUserId=userI)))&bool(like.objects.filter(Q(likeUserId=userI)&Q(likeCmId=id))):
+            return userI
+        else:
+            return getRandomDisLikeUser(code,id)
+
+
+def getRandomLikeUser(code,id):
+    # 假设目前有30用户！
+    userI = user.objects.all()[random.randrange(0,int( user.objects.count()))].userId
+    # 当code=1 是给message点赞
+    if code:
+        # CmId 为空 那么msId就有值了
+        if not bool(like.objects.filter(Q(likeVId=id) & Q(likeUserId=userI)))&bool(Dislike.objects.filter(Q(disLikeVId=id) & Q(disLikeUserId=userI))):
+            return userI
+        else:
+            return getRandomLikeUser(code,id)
+    # 是为了comment点赞：
+    else:
+        #print('22')
+        if not bool(like.objects.filter(Q(likeCmId=id) & Q(likeUserId=userI)))&bool(Dislike.objects.filter(Q(disLikeCmId=id) & Q(disLikeUserId=userI))):
+            return userI
+        else:
+            return getRandomLikeUser(code,id)
 # videoId = models.AutoField(primary_key=True)
 # videoTitle = models.CharField(max_length=20,unique=True)
 # videoInfo = models.CharField(max_length=200,default='这个Up很懒，没有写简介')
@@ -85,7 +119,7 @@ def transform(a):
 # videoDifficulty = models.SmallIntegerField(default=0)
 # # 难易程度 0-5
 # videoTool = models.SmallIntegerField(default=0)
-def getvideo(request):
+def getVideo(request):
     if request.method == "POST":
         try:
             # 具体视频显示页面
@@ -149,7 +183,7 @@ def getvideo(request):
                     }
                     dataList.append(data1)
             except Exception as e:
-                print('11'+str(e))
+                print(str(e))
 
             data1 = {
                 'commentList': dataList,
@@ -286,6 +320,7 @@ def createUserVideo(request):
     # t = int(time())%10000
     dictJson = {}
     videoI = video()
+    commentI = comment()
     if request.method == "POST":
         try:
             avatar = storing(request, 1)
@@ -294,11 +329,13 @@ def createUserVideo(request):
             videoI.videoUserId = userI.userId
             videoI.userAvatar = avatar
             videoI.videoCover = storing(request, 3)
+            videoI.videoSrc = storing(request, 2)
             # videoDuration ????
-            videoI.videoMusucle = request.GET.get('musucle')
+            musucle = int(request.POST.get('musucle'))
+            videoI.videoMusucle = musucle
             # videoI.videoMusucle = int(random.randrange(0,17))
             videoI.videoTitle = ListStringData[3][videoI.videoMusucle]+'——from'+str(userI.userAlias)
-            videoI.videoInfo = videoInfoList[random.randrange(0,10)]
+            videoI.videoInfo = videoInfoList[int(random.randrange(0,10))]
             # videoDuration ????
             videoI.videoGoal = int(random.randrange(0,3))
             videoI.videoTool = int(random.randrange(0,3))
@@ -306,11 +343,20 @@ def createUserVideo(request):
             videoI.videoLocation = int(random.randrange(0, 3))
             videoI.save()
 
+            commentI.cmText = CommentList[int(random.randrange(1,10))]
+            commentI.cmUserId = str(user.objects.all()[random.randrange(0,int( user.objects.count()))].userId)
+            commentI.cmVId = str(video.objects.last().videoId)
+
+            commentI.save()
+
             return render(request, 'edot_uploadUserResult.html', context={
             "user": userI,
             "video": videoI,
+            "comment": commentI,
+
         })
-        except AttributeError:
+        except AttributeError as e:
+            print(e)
             dictJson['code'] = -3
             return JsonResponse(dictJson)
         except Exception as e:
@@ -322,11 +368,69 @@ def createUserVideo(request):
 
 
 # 从已有用户中 抽取出来随机给现有的视频点赞 点踩 评论
-def createLikeComment(request):
-    likeI = like()
-    # likeI.likeUserId = getRandomLikeUser(1, str(msId1))
-    pass
+def createLikeVideo(request):
+    ## 给video点赞 1~20
+    try:
+        flag = int(random.randrange(0,2))
+        allVideo = video.objects.all()
+        for c in allVideo:
+            videoId = c.videoId
+            times = random.randrange(1,10)
+            for i in range(1, times):
+                if flag == 0:
+                    likeI = like()
+                    likeI.likeVId = str(videoId)
+                    likeI.likeUserId = getRandomLikeUser(1, str(videoId))
+                    likeI.save()
 
+                elif flag == 1:
+                    DislikeI = Dislike()
+                    DislikeI.disLikeVId = str(videoId)
+                    DislikeI.disLikeUserId = getRandomDisLikeUser(1, str(videoId))
+                    DislikeI.save()
+
+            if flag == 0:
+                print('1cnmmmm')
+                video.objects.filter(videoId=videoId)[0].videoLikes = 3
+            elif flag == 1:
+                print('2cnmmmm')
+                video.objects.filter(videoId=videoId)[0].videoDisLikes = 3
+    except Exception as e:
+        print(e)
+
+        ## 给comment点赞 1~20
+
+    return HttpResponse("good")
+
+def createLikeComment(request):
+    try:
+        flag = int(random.randrange(0,2))
+
+        for c in comment.objects.all():
+            cmId = c.cmId
+            times = random.randrange(1, 10)
+            for i in range(1, times):
+                if flag == 0:
+                    likeI = like()
+                    likeI.likeCmId = str(cmId)
+                    likeI.likeUserId = getRandomLikeUser(2, str(cmId))
+                    likeI.save()
+
+                elif flag == 1:
+                    DislikeI = Dislike()
+                    DislikeI.disLikeCmId = str(cmId)
+                    DislikeI.disLikeUserId = getRandomDisLikeUser(2, str(cmId))
+                    DislikeI.save()
+
+            if flag == 0:
+                print('3cnmmmm')
+                comment.objects.filter(cmId=cmId)[0].cmLikeCount = 3
+            elif flag == 1:
+                print('4cnmmmm')
+                comment.objects.filter(cmId=cmId)[0].cmDisLikeCount = 3
+    except Exception as e:
+        print(e)
+    return HttpResponse("good")
 
 def createSuper(request):
     pass

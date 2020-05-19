@@ -5,13 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{% url 'artalk_base:getMessage' %}" method='POST'>
+<form action="{% url 'edotBackend:getVideo' %}" method='POST'>
     <span>musucle:</span>
     <input type="text" name="musucle" placeholder="1">
-
-    <span>messageId:</span>
-    <input type="text" name="mId" placeholder="mId">
-
+    <span>Id:</span>
+    <input type="text" name="Id" placeholder="1">
     <button>submit</button>
 </form>
 </body>

@@ -108,15 +108,15 @@ class like(models.Model):
 
 
 class Dislike(models.Model):
-    DislikeId = models.AutoField(primary_key=True)
+    disLikeId = models.AutoField(primary_key=True)
 
     # 哪位用户给的赞
-    DislikeUserId = models.CharField(max_length=6)
+    disLikeUserId = models.CharField(max_length=6)
     # 对视频给的赞
-    DislikeVId = models.CharField(max_length=6,null=True)
+    disLikeVId = models.CharField(max_length=6,null=True)
     # 只可能二选一 要不对视频要不对评论 点赞
-    DislikeCmId = models.CharField(max_length=6,null=True)
-    DislikeTime = models.DateTimeField(default=now())
+    disLikeCmId = models.CharField(max_length=6,null=True)
+    disLikeTime = models.DateTimeField(default=now())
 
     objects = models.manager.QuerySet
 
