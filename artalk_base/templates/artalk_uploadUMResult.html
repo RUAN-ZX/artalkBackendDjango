@@ -14,7 +14,7 @@
     <li>Gender: {{ user.userGender }}</li>
     <li>Phone: {{ user.userPhone }}</li>
     <li>avatarPath: {{ user.userAvatar }}</li>
-    <li><img width="200" height="300" src="/media/Avatar/{{ user.userAvatar }}"></li>
+    <li><img width="200" height="300" src="/artalk/Avatar/{{ user.userAvatar }}"></li>
 </ul>
 
 <ul>
@@ -23,7 +23,7 @@
     <li>likeCount: {{ message.msLikeCount }}</li>
     <li><audio controls="controls" autoplay="autoplay" loop="loop">
   <source src="/i/song.ogg" type="audio/ogg" />
-  <source src="/media/Voice/{{ message.msVoice }}" type="audio/mpeg" />
+  <source src="/artalk/Voice/{{ message.msVoice }}" type="audio/mpeg" />
 Your browser does not support the audio element.
 </audio></li>
 </ul>

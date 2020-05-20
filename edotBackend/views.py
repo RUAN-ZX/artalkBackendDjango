@@ -320,7 +320,7 @@ def createUserVideo(request):
     # t = int(time())%10000
     dictJson = {}
     videoI = video()
-    commentI = comment()
+
     if request.method == "POST":
         try:
             avatar = storing(request, 1)
@@ -343,16 +343,22 @@ def createUserVideo(request):
             videoI.videoLocation = int(random.randrange(0, 3))
             videoI.save()
 
-            commentI.cmText = CommentList[int(random.randrange(1,10))]
-            commentI.cmUserId = str(user.objects.all()[random.randrange(0,int( user.objects.count()))].userId)
-            commentI.cmVId = str(video.objects.last().videoId)
+            videoI = video.objects.last()
+            times = int(random.randrange(3, 10))
+            for i in range(1,times+1):
+                commentI = comment()
+                commentI.cmText = CommentList[int(random.randrange(1,10))]
+                commentI.cmUserId = str(user.objects.all()[random.randrange(0,int( user.objects.count()))].userId)
+                commentI.cmVId = str(videoI.videoId)
 
-            commentI.save()
+                commentI.save()
 
+            videoI.videoComments = times
+            videoI.save()
+            print(str(video.objects.last().videoId)+' added comments ')
             return render(request, 'edot_uploadUserResult.html', context={
             "user": userI,
             "video": videoI,
-            "comment": commentI,
 
         })
         except AttributeError as e:
@@ -390,11 +396,17 @@ def createLikeVideo(request):
                     DislikeI.save()
 
             if flag == 0:
-                print('1cnmmmm')
-                video.objects.filter(videoId=videoId)[0].videoLikes = 3
+
+                videoII = video.objects.filter(videoId=videoId)[0]
+                likes = videoII.videoLikes
+                videoII.videoLikes = likes + times
+                videoII.save()
             elif flag == 1:
-                print('2cnmmmm')
-                video.objects.filter(videoId=videoId)[0].videoDisLikes = 3
+                videoII = video.objects.filter(videoId=videoId)[0]
+                dislikes = videoII.videoDisLikes
+                videoII.videoDisLikes = dislikes + times
+                videoII.save()
+
     except Exception as e:
         print(e)
 
@@ -423,11 +435,15 @@ def createLikeComment(request):
                     DislikeI.save()
 
             if flag == 0:
-                print('3cnmmmm')
-                comment.objects.filter(cmId=cmId)[0].cmLikeCount = 3
+                commentII = comment.objects.filter(cmId=cmId)[0]
+                likes = commentII.cmLikeCount
+                commentII.cmLikeCount = likes + times
+                commentII.save()
             elif flag == 1:
-                print('4cnmmmm')
-                comment.objects.filter(cmId=cmId)[0].cmDisLikeCount = 3
+                commentII = comment.objects.filter(cmId=cmId)[0]
+                likes = commentII.cmDisLikeCount
+                commentII.cmDisLikeCount = likes + times
+                commentII.save()
     except Exception as e:
         print(e)
     return HttpResponse("good")

@@ -148,12 +148,6 @@ def getMessage(request):
                 mslist = []
 
                 for ms in msList:
-                    if bool(ms.msVoice)&bool(ms.msText):
-                        mstype = 3
-                    elif ms.msVoice:
-                        mstype = 2
-                    else:
-                        mstype = 1
                     uid = ms.msUserID
                     avatar = user.objects.filter(userId=uid)[0].userAvatar
                     LikeCount = ms.msLikeCount
@@ -166,7 +160,6 @@ def getMessage(request):
                         'likeCount':LikeCount,
                         'DislikeCount':DisLikeCount,
                         'commentCount': commentCount,
-                        'mstype':mstype,
                         'time':str(mstime),
                         'avatar':avatar,
                     }
